@@ -94,7 +94,7 @@ class Project extends ORR_Controller {
         /**
          * กำหนดค่าที่เกี่ยวกับหน้าจอ
          */
-        $this->page_value['title'] = "กิจการของระบบ";
+        $this->page_value['title'] = "กิจกรรมของระบบ";
         $crud = $this->get_acrud(['table' => 'my_activity', 'subject' => 'กิจกรรมของระบบ']);
         $crud->unset_add()->unset_clone()->unset_edit()->unset_delete();
          /**

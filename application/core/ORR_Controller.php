@@ -46,8 +46,8 @@ class ORR_Controller extends CI_Controller {
     /**
      * 
      */
-    protected function set_view($output) {
-        $view_name = "project_home.php";
+    protected function set_view($output, $view_name = "project_home.php") {
+
         if (!is_array($output)) {
             $output = is_object($output) ? get_object_vars($output) : array();
         }

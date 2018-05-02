@@ -44,7 +44,7 @@ class Project extends ORR_Controller {
         $crud->field_type('any_use', 'dropdown', $this->use_set)->field_type('aut_user', 'dropdown', $this->aut_set)
                 ->field_type('aut_group', 'dropdown', $this->aut_set)->field_type('aut_any', 'dropdown', $this->aut_set)
                 ->field_type('aut_god', 'dropdown', $this->use_set);
-        $crud->set_relation('aut_can_from', 'my_sys', '{sys_id}  -  {title}');
+        $crud->set_relation('aut_can_from', 'my_sys', '{title} {sys_id}');
         /**
          * End of function
          */
