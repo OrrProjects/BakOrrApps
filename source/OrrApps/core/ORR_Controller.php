@@ -13,7 +13,7 @@
  */
 class ORR_Controller extends CI_Controller {
 
-    protected $page_value = ['title' => NULL, 'sign_status' => NULL, 'topic' => NULL];
+    protected $page_ = ['title' => NULL, 'sign_status' => NULL, 'topic' => NULL];
     protected $acrud;
 
     public function __construct() {

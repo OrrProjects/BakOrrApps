@@ -36,18 +36,19 @@ class Orr_ACRUD extends Grocery_CRUD {
      */
     public function __construct() {
         parent::__construct();
+        /**
         $ci = &get_instance();
         $ci->load->model('Authorize_orr');
         $this->auth_model = new Authorize_orr();
+
+        /**
         $this->sign_data = $this->get_sign_data();
         if ($this->sign_data['status'] !== 'Online') {
             redirect(site_url('Mark'));
         }else if(!$this->auth_model->get_sys_exist()){
-            /**
-             * @todo นำไปหน้าที่ตั้งค่าโปรแกรม
-             */
             die('ไม่พบโปรแกรม ' . $this->sign_data['script']);
         }
+        **/
         $language = 'thai';
         $this->set_language($language);
         $this->field_type('sec_owner', 'invisible')->field_type('sec_user', 'invisible')->field_type('sec_time', 'invisible')->field_type('sec_ip', 'invisible')->field_type('sec_script', 'invisible');
@@ -121,9 +122,9 @@ class Orr_ACRUD extends Grocery_CRUD {
         return parent::get_integer_input($field_info, $this->get_value($field_info, $value));
     }
 
-    public function get_sign_data() {
+    /**public function get_sign_data() {
         return $this->auth_model->get_sign_data();
-    }
+    }**/
     
     public function add_activity($txt){
         $this->auth_model->add_activity($txt);

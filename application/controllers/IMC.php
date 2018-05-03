@@ -1,4 +1,5 @@
 <?php
+
 defined('BASEPATH') OR exit('No direct script access allowed');
 /*
  * The MIT License
@@ -29,31 +30,30 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  *
  * @author it
  */
-class IMC extends ORR_Controller{
+class IMC extends ORR_Controller {
+
     public function __construct() {
         parent::__construct();
         $this->load->database('theptarin_utf8');
     }
-    
+
     public function index() {
-        $this->set_view((object) array('output' => '', 'js_files' => array(), 'css_files' => array()),'imc_home.php');
+        $this->set_view((object) array('output' => '', 'js_files' => array(), 'css_files' => array()));
     }
-    
-     /**
+
+    /**
      * Orr-apps my_datafield
      */
-    public function icd10_code(){
-         /**
-         * กำหนดค่าที่เกี่ยวกับหน้าจอ
-         */
-        $this->page_value['title'] = "รหัสการวินิจฉัยโรค";
-        $crud = $this->get_acrud(['table' => 'mr_diag', 'subject' => 'รหัสการวินิจฉัยโรค']);
-        //$crud->columns('field_id', 'name', 'description');
+    public function icd10_code() {
+
+        $crud = $this->get_acrud(['table' => 'mr_diag']);
+        $crud->columns('code', 'name_e', 'name_t');
         $crud->required_fields(array('code', 'name_e'));
         $crud->unique_fields(array('code'));
-         /**
+        /**
          * End of function
          */
-        $this->set_view($crud->render());     
+        $this->set_view($crud->render());
     }
+
 }

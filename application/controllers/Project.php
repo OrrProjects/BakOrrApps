@@ -29,14 +29,9 @@ class Project extends ORR_Controller {
 
     public function my_sys() {
 
-        /**
-         * กำหนดค่าที่เกี่ยวกับหน้าจอ
-         */
-        $this->page_value['title'] = "โปรแกรม";
+        $crud = $this->get_acrud(['table' => 'my_sys']);
 
-        $crud = $this->get_acrud(['table' => 'my_sys', 'subject' => 'โปรแกรม']);
-
-        $crud->columns('sys_id', 'title', 'any_use', 'aut_user', 'aut_group', 'aut_any', 'aut_god','aut_can_from');
+        $crud->columns('sys_id', 'title', 'any_use', 'aut_user', 'aut_group', 'aut_any', 'aut_god', 'aut_can_from');
         $crud->unique_fields(array('sys_id', 'title'));
         $crud->required_fields(array('sys_id', 'title', 'any_use', 'aut_user', 'aut_group', 'aut_any', 'aut_god'));
         $crud->default_as('any_use', 1)->default_as('aut_user', 3)->default_as('aut_group', 2)->default_as('aut_any', 1)->default_as('aut_god', 1);
@@ -55,12 +50,8 @@ class Project extends ORR_Controller {
      * Orr-projects User
      */
     public function my_user() {
-        /**
-         * กำหนดค่าที่เกี่ยวกับหน้าจอ
-         */
-        $this->page_value['title'] = "ผู้ใช้งาน";
-
-        $crud = $this->get_acrud(['table' => 'my_user', 'subject' => 'ผู้ใช้งาน']);
+       
+        $crud = $this->get_acrud(['table' => 'my_user']);
         $crud->columns('user', 'fname', 'lname', 'status');
         $crud->required_fields(array('user', 'fname', 'lname', 'status'));
         $crud->default_as('status', '0');
@@ -71,36 +62,30 @@ class Project extends ORR_Controller {
          */
         $this->set_view($crud->render());
     }
-    
+
     /**
      * Orr-apps my_datafield
      */
-    public function my_datafield(){
-         /**
-         * กำหนดค่าที่เกี่ยวกับหน้าจอ
-         */
-        $this->page_value['title'] = "คำจำกัดความข้อมูล";
-        $crud = $this->get_acrud(['table' => 'my_datafield', 'subject' => 'คำจำกัดความข้อมูล']);
+    public function my_datafield() {
+       
+        $crud = $this->get_acrud(['table' => 'my_datafield']);
         $crud->columns('field_id', 'name', 'description');
         $crud->required_fields(array('field_id', 'name'));
         $crud->unique_fields(array('name'));
-         /**
-         * End of function
-         */
-        $this->set_view($crud->render());     
-    }
-    
-    public function my_activity(){
         /**
-         * กำหนดค่าที่เกี่ยวกับหน้าจอ
-         */
-        $this->page_value['title'] = "กิจการของระบบ";
-        $crud = $this->get_acrud(['table' => 'my_activity', 'subject' => 'กิจกรรมของระบบ']);
-        $crud->unset_add()->unset_clone()->unset_edit()->unset_delete();
-         /**
          * End of function
          */
-        $this->set_view($crud->render());     
+        $this->set_view($crud->render());
+    }
+
+    public function my_activity() {
+        
+        $crud = $this->get_acrud(['table' => 'my_activity']);
+        $crud->unset_add()->unset_clone()->unset_edit()->unset_delete();
+        /**
+         * End of function
+         */
+        $this->set_view($crud->render());
     }
 
     /**

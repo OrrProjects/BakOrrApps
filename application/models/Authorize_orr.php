@@ -13,7 +13,12 @@ class Authorize_orr extends CI_Model {
      * List of all sign data
      * @var array 
      */
-    protected $sign_data = ['id' => 0, 'user' => NULL, 'ip_address' => NULL, 'script' => NULL, 'key' => NULL, 'status' => NULL];
+    protected $sign_data = ['id' => 0, 'user' => NULL, 'ip_address' => NULL, 'script' => NULL, 'project' => NULL, 'project_title' => NULL, 'project_description' => NULL, 'key' => NULL, 'status' => NULL];
+
+    /**
+     * Authorize db object
+     */
+    protected $db_auth = NULL;
 
     /**
      * Constructor
@@ -21,7 +26,7 @@ class Authorize_orr extends CI_Model {
     public function __construct() {
         parent::__construct();
         $this->load->library('session');
-        $this->load->database('orr-projects');
+        $this->db_auth = $this->load->database('orr-projects', TRUE);
 
         $this->sign_data['ip_address'] = $this->get_sign_ip_address();
         $this->sign_data['script'] = 'authorize_orr';
@@ -40,7 +45,7 @@ class Authorize_orr extends CI_Model {
 
     public function get_sys_exist() {
         $sql = "SELECT *  FROM `my_sys` WHERE `sys_id` = ?";
-        $query = $this->db->query($sql, array($this->sign_data['script']));
+        $query = $this->db_auth->query($sql, array($this->sign_data['script']));
         if ($query->num_rows() === 1) {
             $var = TRUE;
         } else {
@@ -62,7 +67,7 @@ class Authorize_orr extends CI_Model {
          */
         $sql = "SELECT * FROM  `my_user`  WHERE  user = ? AND val_pass LIKE  ? AND`status` = 0 ";
         $pass = "%" . md5($pass) . "%";
-        $query = $this->db->query($sql, array($user, $pass));
+        $query = $this->db_auth->query($sql, array($user, $pass));
         if ($query->num_rows() === 1) {
             /**
              * Create sing key with ip,user,sec_time
@@ -92,7 +97,7 @@ class Authorize_orr extends CI_Model {
     private function set_sign() {
         $this->sign_data = json_decode($this->session->userdata('sign_data'), TRUE);
         $sql = "SELECT * FROM  `my_user`  WHERE  id = ? AND`status` = 0 ";
-        $query = $this->db->query($sql, array($this->sign_data['id']));
+        $query = $this->db_auth->query($sql, array($this->sign_data['id']));
         if ($query->num_rows() === 1) {
             if ($this->sign_data['key'] === $this->get_sign_key($query->row()->sec_time)) {
                 $this->sign_data['status'] = $this->get_sign_status(TRUE);
@@ -161,12 +166,34 @@ class Authorize_orr extends CI_Model {
      */
     public function get_sign_script() {
         $ci_uri = new CI_URI();
-        return $this->sign_data['script'] = $ci_uri->segment(1) . ':' . $ci_uri->segment(2);
+        $this->sign_data['project'] = $ci_uri->segment(1) . ':';
+        $this->set_project($this->sign_data['project']);
+        $this->sign_data['script'] = $this->sign_data['project'] . $ci_uri->segment(2);
+        $this->set_form($this->sign_data['script']);
+        return $this->sign_data['script'];
+    }
+
+    protected function set_project($project) {
+        $sql = "SELECT * FROM  `my_sys`  WHERE  sys_id = ? ";
+        $query = $this->db_auth->query($sql, array($project));
+        if ($query->num_rows() === 1) {
+            $this->sign_data['project_title'] = $query->row()->title;
+            $this->sign_data['project_description'] = $query->row()->description;
+        }
+    }
+    
+    protected function set_form($script){
+        $sql = "SELECT * FROM  `my_sys`  WHERE  sys_id = ? ";
+        $query = $this->db_auth->query($sql, array($script));
+        if ($query->num_rows() === 1) {
+            $this->sign_data['form_title'] = $query->row()->title;
+            $this->sign_data['form_description'] = $query->row()->description;
+        }
     }
 
     public function add_activity($txt) {
         $data = ['description' => $txt, 'sec_user' => $this->sign_data['user'], 'sec_time' => date("Y-m-d H:i:s"), 'sec_ip' => $this->sign_data['ip_address'], 'sec_script' => $this->sign_data['script']];
-        $this->db->insert('my_activity', $data);
+        $this->db_auth->insert('my_activity', $data);
     }
 
     public function sign_out() {
@@ -175,7 +202,7 @@ class Authorize_orr extends CI_Model {
         $this->add_activity($txt);
         $this->session->sess_destroy();
     }
-    
+
     /**
      * 
      * @param Array Fields
@@ -183,7 +210,7 @@ class Authorize_orr extends CI_Model {
      */
     public function get_fields_label(array $fields) {
         $sql = "SELECT `field_id` , `name` , `description` FROM  `my_datafield`  WHERE `field_id` IN ?";
-        $query = $this->db->query($sql, array($fields));
+        $query = $this->db_auth->query($sql, array($fields));
         return $query->result_array();
     }
 

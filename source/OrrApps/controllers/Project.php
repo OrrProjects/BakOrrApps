@@ -32,7 +32,7 @@ class Project extends ORR_Controller {
         /**
          * กำหนดค่าที่เกี่ยวกับหน้าจอ
          */
-        $this->page_value['title'] = "โปรแกรม";
+        $this->page_['title'] = "โปรแกรม";
 
         $crud = $this->get_acrud(['table' => 'my_sys', 'subject' => 'โปรแกรม']);
 
@@ -58,7 +58,7 @@ class Project extends ORR_Controller {
         /**
          * กำหนดค่าที่เกี่ยวกับหน้าจอ
          */
-        $this->page_value['title'] = "ผู้ใช้งาน";
+        $this->page_['title'] = "ผู้ใช้งาน";
 
         $crud = $this->get_acrud(['table' => 'my_user', 'subject' => 'ผู้ใช้งาน']);
         $crud->columns('user', 'fname', 'lname', 'status');
@@ -79,7 +79,7 @@ class Project extends ORR_Controller {
          /**
          * กำหนดค่าที่เกี่ยวกับหน้าจอ
          */
-        $this->page_value['title'] = "คำจำกัดความข้อมูล";
+        $this->page_['title'] = "คำจำกัดความข้อมูล";
         $crud = $this->get_acrud(['table' => 'my_datafield', 'subject' => 'คำจำกัดความข้อมูล']);
         $crud->columns('field_id', 'name', 'description');
         $crud->required_fields(array('field_id', 'name'));
@@ -94,7 +94,7 @@ class Project extends ORR_Controller {
         /**
          * กำหนดค่าที่เกี่ยวกับหน้าจอ
          */
-        $this->page_value['title'] = "กิจกรรมของระบบ";
+        $this->page_['title'] = "กิจกรรมของระบบ";
         $crud = $this->get_acrud(['table' => 'my_activity', 'subject' => 'กิจกรรมของระบบ']);
         $crud->unset_add()->unset_clone()->unset_edit()->unset_delete();
          /**
