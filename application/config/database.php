@@ -117,12 +117,12 @@ $db['orr-projects'] = array(
 	'save_queries' => TRUE
 );
 
-$db['theptarin_utf8'] = array(
+$db['theptarin'] = array(
 	'dsn'	=> '',
 	'hostname' => 'localhost',
 	'username' => 'orr-projects',
 	'password' => 'orr-projects',
-	'database' => 'theptarin_utf8',
+	'database' => 'theptarin',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,

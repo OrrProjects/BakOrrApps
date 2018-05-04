@@ -34,7 +34,7 @@ class IMC extends ORR_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->load->database('theptarin_utf8');
+        $this->load->database('theptarin');
     }
 
     public function index() {
@@ -43,14 +43,28 @@ class IMC extends ORR_Controller {
     }
 
     /**
-     * Orr-apps my_datafield
+     * IMC icd10_code
      */
     public function icd10_code() {
 
-        $crud = $this->get_acrud(['table' => 'mr_diag']);
+        $crud = $this->get_acrud(['table' => 'imc_icd10_code']);
         $crud->columns('code', 'name_e', 'name_t');
         $crud->required_fields(array('code', 'name_e'));
         $crud->unique_fields(array('code'));
+        /**
+         * End of function
+         */
+        $this->set_view($crud->render());
+    }
+    
+    public function icd10_opd(){
+        $crud = $this->get_acrud(['table' => 'imc_icd10_opd']);
+        $crud->columns('visit_date', 'vn', 'hn');
+        //$crud->required_fields(array('code', 'name_e'));
+        //$crud->unique_fields(array('code'));
+        $crud->set_relation('principal_diag1', 'imc_icd10_code', '{code} {name_e}');
+        $crud->set_relation('principal_diag2', 'imc_icd10_code', '{code} {name_e}');
+        $crud->set_relation('principal_diag3', 'imc_icd10_code', '{code} {name_e}');
         /**
          * End of function
          */
