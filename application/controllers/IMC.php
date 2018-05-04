@@ -65,6 +65,7 @@ class IMC extends ORR_Controller {
         $crud->set_relation('principal_diag1', 'imc_icd10_code', '{code} {name_e}');
         $crud->set_relation('principal_diag2', 'imc_icd10_code', '{code} {name_e}');
         $crud->set_relation('principal_diag3', 'imc_icd10_code', '{code} {name_e}');
+        $crud->set_relation('signature_opd', 'doctor_name', '{doctor_id}');
         /**
          * End of function
          */
