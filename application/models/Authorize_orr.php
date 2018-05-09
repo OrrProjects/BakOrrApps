@@ -166,7 +166,7 @@ class Authorize_orr extends CI_Model {
      */
     public function get_sign_script() {
         $ci_uri = new CI_URI();
-        $this->sign_data['project'] = $ci_uri->segment(1) . ':';
+        $this->sign_data['project'] = $ci_uri->segment(1) . '_';
         $this->set_project($this->sign_data['project']);
         $this->sign_data['script'] = $this->sign_data['project'] . $ci_uri->segment(2);
         $this->set_form($this->sign_data['script']);

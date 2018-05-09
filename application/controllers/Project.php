@@ -34,6 +34,7 @@ class Project extends ORR_Controller {
         $crud->columns('sys_id', 'title', 'any_use', 'aut_user', 'aut_group', 'aut_any', 'aut_god', 'aut_can_from');
         $crud->unique_fields(array('sys_id', 'title'));
         $crud->required_fields(array('sys_id', 'title', 'any_use', 'aut_user', 'aut_group', 'aut_any', 'aut_god'));
+        $crud->set_rules('sys_id','รหัสโปรแกรม','alpha_dash');
         $crud->default_as('any_use', 1)->default_as('aut_user', 3)->default_as('aut_group', 2)->default_as('aut_any', 1)->default_as('aut_god', 1);
         $crud->display_as('sys_id', 'รหัส')->display_as('aut_user', 'สิทธ์เจ้าของ')->display_as('title', 'ชื่อโปรแกรม');
         $crud->field_type('any_use', 'dropdown', $this->use_set)->field_type('aut_user', 'dropdown', $this->aut_set)

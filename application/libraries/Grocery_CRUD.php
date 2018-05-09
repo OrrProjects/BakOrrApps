@@ -3468,7 +3468,7 @@ class grocery_CRUD_States extends grocery_CRUD_Layout
 		if($primary_key === null)
 			return $this->state_url('read');
 		else
-			return $this->state_url('read/'.$primary_key);
+			return $this->state_url('read/'.$primary_key.'TEST');
 	}
 
 	protected function getUpdateUrl($state_info)
