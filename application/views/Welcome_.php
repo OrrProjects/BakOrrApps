@@ -25,6 +25,7 @@ Orr projects Home
             <?php echo anchor(site_url('Project'), 'อ๋อโปรเจค', ['title' => 'ไปที่หน้าหลักของโปรเจค หรือโหลดหน้าโปรเจคใหม่']) ?> |
             <?php echo anchor(site_url('IMC'), 'สารสนเทศเวชสถิติ', ['title' => 'การให้รหัสวินิจฉัยโรค']) ?> |
             <?php echo anchor(site_url('Report'), 'รายงานสนับสนุน', ['title' => 'รายงานเพื่อสนับสนุนการทำงาน']) ?> |
+            <?php echo anchor(site_url('Ttr_mse'), 'รายงานสนับสนุน(ttr_mse)', ['title' => 'รายงานเพื่อสนับสนุนการทำงาน']) ?> |
             <?php echo anchor(base_url("user_guide"), 'คู่มือ', ['title' => "คู่มือการใช้งาน"]) ?> |
             <?php echo anchor(site_url("Mark/signout"), 'ออกจากระบบ', ['title' => "ออกจากระบบ"]) ?> |
             <?php echo anchor(site_url('Mark'), 'เข้าสู่ระบบ', ['title' => 'ไปที่หน้าเข้าระบบอื่นๆ']) ?>
