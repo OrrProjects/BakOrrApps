@@ -59,13 +59,11 @@ class IMC extends ORR_Controller {
     
     public function icd10_opd(){
         $crud = $this->get_acrud(['table' => 'imc_icd10_opd']);
-        $crud->columns('visit_date', 'vn', 'hn');
+        $crud->columns('visit_date', 'vn', 'hn','opd_principal_diag');
+        $crud->set_relation_n_n('opd_principal_diag','imc_opd_principal_diag','imc_icd10_code','icd10_opd_id','icd10_code_id','name_e');
         //$crud->required_fields(array('code', 'name_e'));
         //$crud->unique_fields(array('code'));
-        $crud->set_relation('principal_diag1', 'imc_icd10_code', '{code} {name_e}');
-        $crud->set_relation('principal_diag2', 'imc_icd10_code', '{code} {name_e}');
-        $crud->set_relation('principal_diag3', 'imc_icd10_code', '{code} {name_e}');
-        $crud->set_relation('signature_opd', 'doctor_name', '{doctor_id}');
+        //$crud->set_relation('signature_opd', 'doctor', '{doctor_id}');
         /**
          * End of function
          */
