@@ -67,5 +67,27 @@ class IMC extends ORR_Controller {
          */
         $this->set_view($crud->render());
     }
+    
+    public function icd10_ipd(){
+        $crud = $this->get_acrud(['table' => 'imc_icd10_ipd']);
+        $crud->columns('discharge_date', 'an', 'hn','ipd_principal_diag');
+        $crud->add_fields('discharge_date', 'an', 'hn','ipd_principal_diag','ipd_comorbidity_diag','ipd_complication_diag','ipd_other_diag','ipd_consultation','signature_ipd');
+        $crud->edit_fields('discharge_date', 'an', 'hn','ipd_principal_diag','ipd_comorbidity_diag','ipd_complication_diag','ipd_other_diag','ipd_consultation','signature_ipd');
+        $crud->set_relation_n_n('ipd_principal_diag','imc_ipd_principal_diag','imc_icd10_code','icd10_ipd_id','icd10_code_id','{code} {name_en}');
+        /**
+        $crud->set_relation_n_n('ipd_comorbidity_diag','imc_ipd_comorbidity_diag','imc_icd10_code','icd10_ipd_id','icd10_code_id','{code} {name_en}');
+        $crud->set_relation_n_n('ipd_complication_diag','imc_ipd_complication_diag','imc_icd10_code','icd10_ipd_id','icd10_code_id','{code} {name_en}');
+        $crud->set_relation_n_n('ipd_other_diag','imc_ipd_other_diag','imc_icd10_code','icd10_ipd_id','icd10_code_id','{code} {name_en}');
+        $crud->set_relation_n_n('ipd_consultation','imc_ipd_consultation','ttr_hims.doctor_name','icd10_ipd_id','doctor_name_id','{fname} {lname} [ {doctor_id} ]');
+        **/
+        $crud->set_relation('signature_ipd', 'ttr_hims.doctor_name', '{fname} {lname} [ {doctor_id} ]');
+        
+        
+        
+        /**
+         * End of function
+         */
+        $this->set_view($crud->render());
+    }
 
 }

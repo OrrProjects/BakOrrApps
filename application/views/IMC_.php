@@ -18,6 +18,7 @@
             <a href='<?php echo site_url('') ?>'>หน้าหลัก</a> |
             <a href='<?php echo site_url('IMC/icd10_code') ?>'>การกำหนดรหัสวินิจฉัยโรค</a> |
             <a href='<?php echo site_url('IMC/icd10_opd') ?>'>การให้รหัสวินิจฉัยโรคของผู้ป่วยนอก</a> |
+            <a href='<?php echo site_url('IMC/icd10_ipd') ?>'>การให้รหัสวินิจฉัยโรคของผู้ป่วยใน</a> |
             <!--**
             <a href='<?php echo site_url('Project/my_user') ?>'>ผู้ใช้งาน</a> |
             <a href='<?php echo site_url('Project/my_group') ?>'>กลุ่มผู้ใช้งาน</a> |
