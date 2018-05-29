@@ -16,16 +16,16 @@ class ORR_Controller extends CI_Controller {
         $this->load->model('Authorize_orr');
         $this->load->library('grocery_CRUD');
         $this->load->library('orr_ACRUD');
-        
+
         $sign_data_ = $this->Authorize_orr->get_sign_data();
         if ($sign_data_['status'] !== 'Online') {
             redirect(site_url('Mark'));
         } else if (!$this->Authorize_orr->get_sys_exist()) {
             die('ไม่พบโปรแกรม ' . $sign_data_['script']);
         }
-        
-        $this->page_['title'] = $sign_data_['project_title'];
+
         $this->page_['subject'] = $sign_data_['form_title'];
+        $this->page_['title'] = $sign_data_['project_title'] . " " . $this->page_['subject'] ;
         //$this->page_['description'] = $sign_data_['project_description'];
     }
 
@@ -38,14 +38,33 @@ class ORR_Controller extends CI_Controller {
         $this->acrud = new Orr_ACRUD();
         $acrud = $this->acrud;
         $acrud->set_table($frm_['table']);
-        $acrud->set_subject(isset($frm_['subject'])?$frm_['subject']:$this->page_['subject']);
-        
+        $acrud->set_subject(isset($frm_['subject']) ? $frm_['subject'] : $this->page_['subject']);
+
         $acrud->callback_before_insert(array($this, 'EV_before_insert'));
         $acrud->callback_after_insert(array($this, 'EV_after_insert'));
         $acrud->callback_before_update(array($this, 'EV_before_update'));
         $acrud->callback_after_update(array($this, 'EV_after_update'));
         $acrud->callback_after_delete(array($this, 'EV_after_delete'));
 
+        return $this->acrud;
+    }
+
+    /**
+     * Create report object
+     * @param array $vals
+     * @return object
+     */
+    protected function get_tabledata(array $frm_) {
+        $this->acrud = new Orr_ACRUD();
+        $tabledata = $this->acrud;
+        //$tabledata->set_theme('datatables');
+        $tabledata->set_table($frm_['table']);
+        //$frm_['primary_key'] = 'hn';
+        $tabledata->set_primary_key($frm_['primary_key']);
+        $tabledata->set_subject(isset($frm_['subject']) ? $frm_['subject'] : $this->page_['subject']);
+        $tabledata->unset_add();
+        $tabledata->unset_edit();
+        $tabledata->unset_delete();
         return $this->acrud;
     }
 

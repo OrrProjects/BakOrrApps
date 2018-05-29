@@ -25,8 +25,8 @@ class ORR_Controller extends CI_Controller {
 
     /**
      * Create acrud object
-     * @param Array $vals
-     * @return Object
+     * @param array $vals
+     * @return object
      */
     protected function get_acrud(array $vals) {
         $this->acrud = new Orr_ACRUD();
@@ -42,6 +42,8 @@ class ORR_Controller extends CI_Controller {
 
         return $this->acrud;
     }
+    
+    
 
     /**
      * 

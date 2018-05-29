@@ -26,11 +26,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  */
 
 /**
- * Description of Reports
+ * Description of Hims
  *
  * @author it
  */
-class Report extends ORR_Controller {
+class Hims extends ORR_Controller {
 
     public function __construct() {
         parent::__construct();
@@ -38,22 +38,14 @@ class Report extends ORR_Controller {
     }
 
     public function index() {
-        $this->set_view((object) array('output' => '', 'js_files' => array(base_url('assets/jquery/jquery-3.2.1.min.js'), base_url('assets/jquery/jquery-3.2.1.min.js')), 'css_files' => array(base_url('assets/bootstrap/css/bootstrap.min.css'))));
+        $this->set_view((object) array('output' => '', 'js_files' => array(), 'css_files' => array()));
     }
 
-    public function patient() {
-
-        $crud = $this->get_acrud(['table' => 'patient']);
-        $crud->columns('hn', 'fname', 'lname', 'sex', 'idcard');
-        $crud->unset_add();
-        $crud->unset_edit();
-        $crud->unset_delete();
-        //$crud->required_fields(array('code', 'name_e'));
-        //$crud->unique_fields(array('code'));
-        /**
-         * End of function
-         */
-        $this->set_view($crud->render());
+    public function personal() {
+        $tabledata = $this->get_tabledata(['table' => 'personal', 'primary_key' => 'hn']);
+        $tabledata->columns(['hn', 'fname', 'lname', 'sex', 'birthday_date', 'idcard', 'province', 'mobile']);
+        $tabledata->where('hn >', '127');
+        $this->set_view($tabledata->render());
     }
 
 }
