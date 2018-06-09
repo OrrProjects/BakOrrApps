@@ -53,6 +53,8 @@ class Orr_ACRUD extends Grocery_CRUD {
         $this->field_type('sec_owner', 'invisible')->field_type('sec_user', 'invisible')->field_type('sec_time', 'invisible')->field_type('sec_ip', 'invisible')->field_type('sec_script', 'invisible');
         $sec_fields = ['sec_owner', 'sec_user', 'sec_time', 'sec_ip', 'sec_script'];
         $this->set_label_as($sec_fields);
+        
+        $this->unset_jquery();
     }
 
     /**

@@ -77,6 +77,8 @@ class ORR_Controller extends CI_Controller {
             $output = is_object($output) ? get_object_vars($output) : array();
         }
         $output['page_value'] = $this->page_;
+        $output['css_files'] = array_merge([base_url('assets/bootstrap-4/css/bootstrap.min.css')],$output['css_files']);
+        $output['js_files'] = array_merge([base_url('assets/jquery/jquery-min.js')],$output['js_files']);
         $this->load->view(isset($sign_data_['project']) ? $sign_data_['project'] : $view_name, (array) $output);
     }
 
