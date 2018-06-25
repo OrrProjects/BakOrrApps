@@ -92,6 +92,8 @@ class IMC extends ORR_Controller {
     
     public function opd_visit() {
         $tabledata = $this->get_tabledata(['table' => 'imc_opd_visit', 'primary_key' => 'hn']);
+        //$tabledata->set_theme('datatables');
+        $tabledata->add_action('More', '', 'demo/action_more','ui-icon-plus');
         //$tabledata->columns(['hn', 'fname', 'lname', 'sex', 'birthday_date', 'idcard', 'province', 'mobile']);
         //$tabledata->where('hn >', '127');
         $this->set_view($tabledata->render());
