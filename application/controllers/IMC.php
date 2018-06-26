@@ -59,7 +59,9 @@ class IMC extends ORR_Controller {
     
     public function icd10_opd(){
         $crud = $this->get_acrud(['table' => 'imc_icd10_opd']);
+        //$crud->set_theme('datatables');
         $crud->columns('visit_date', 'vn', 'hn','opd_principal_diag');
+        $crud->add_action('More');
         $crud->set_relation_n_n('opd_principal_diag','imc_opd_principal_diag','imc_icd10_code','icd10_opd_id','icd10_code_id','{code} {name_en}');
         $crud->set_relation('signature_opd', 'ttr_hims.doctor_name', '{fname} {lname} [ {doctor_id} ]');
         /**
@@ -93,7 +95,7 @@ class IMC extends ORR_Controller {
     public function opd_visit() {
         $tabledata = $this->get_tabledata(['table' => 'imc_opd_visit', 'primary_key' => 'hn']);
         //$tabledata->set_theme('datatables');
-        $tabledata->add_action('More', '', 'demo/action_more','ui-icon-plus');
+        $tabledata->add_action('More');
         //$tabledata->columns(['hn', 'fname', 'lname', 'sex', 'birthday_date', 'idcard', 'province', 'mobile']);
         //$tabledata->where('hn >', '127');
         $this->set_view($tabledata->render());

@@ -30,7 +30,7 @@ class Project extends ORR_Controller {
     public function my_sys() {
 
         $crud = $this->get_acrud(['table' => 'my_sys']);
-
+        $crud->set_theme('datatables');
         $crud->columns('sys_id', 'title', 'any_use', 'aut_user', 'aut_group', 'aut_any', 'aut_god', 'aut_can_from');
         $crud->unique_fields(array('sys_id', 'title'));
         $crud->required_fields(array('sys_id', 'title', 'any_use', 'aut_user', 'aut_group', 'aut_any', 'aut_god'));
